@@ -21,7 +21,7 @@ const gameBoard = document.querySelector('.board')
 
 /*-------------------------------- Functions --------------------------------*/
 function init() {
-    board = ['X', 'X', 'X', '', 'X', '', 'O', '', ''];
+    board = ['', '', '', '', '', '', '', '', ''];
     turn = 'X';
     winner = false;
     tie = false;
@@ -66,11 +66,21 @@ function handleClick(e) {
         return;
     } 
     placePiece(squareIndex);
-    checkForWinner()
+    checkForWinner();
+    updateMessage();
 };
 
 function placePiece(index) {
     board[index] = turn;
+    if (board[index] === 'X') {
+        updateBoard(index);
+        updateMessage()
+        turn = 'O'
+    } else if (board[index] === 'O') {
+        updateBoard(index);
+        updateMessage()
+        turn = 'X'
+    }
     console.log(board[index]);
 }
 
@@ -79,13 +89,30 @@ function checkForWinner() {
         //console.log(combo);
         const [a, b, c] = combo;
         if (board[a] && board[a] === board[b] && board[b] === board[c]) {
-            winner = turn;
-            //console.log(`The winner is ${}`)
+            winner = true;
+            turn = board[c];
+            updateMessage();
+            console.log(`The winner is ${turn}`)
             return;
-        }
+        } 
+    }
+};
+
+function checkForTie(index) {
+    if (winner) {
+        return;
+    } else if (board[index] !== '') {
+        
     }
 }
 
+function restartGame() {
+    const restartButton = document.createElement('button');
+    restartButton.textContent = 'Restart?'
+    messageEl.appendChild(restartButton)
+}
+
+restartGame();
 /*----------------------------- Event Listeners -----------------------------*/
 squareEls.forEach(square => {
     square.addEventListener('click', handleClick);
