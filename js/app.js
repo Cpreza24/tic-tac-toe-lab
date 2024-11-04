@@ -19,6 +19,7 @@ const squareEls = document.querySelectorAll('.sqr');
 const messageEl = document.getElementById('message');
 const gameBoard = document.querySelector('.board');
 const resetBtnEl = document.getElementById('reset');
+const markedSquares = document.querySelectorAll('div');
 
 
 /*-------------------------------- Functions --------------------------------*/
@@ -30,6 +31,8 @@ function init() {
     
     squareEls.forEach((square) => {
         square.textContent = '';
+        square.classList.remove('marked-o');
+        square.classList.remove('marked-x');
     });
     console.log('Game initialized');
     render();
@@ -79,14 +82,16 @@ function handleClick(e) {
 function placePiece(index) {
     board[index] = turn;
     if (board[index] === 'X') {
+        squareEls[index].classList.add('marked-x');
         updateBoard(index);
         updateMessage();
-        changeTurn()
+        changeTurn();
         //turn = 'O'
     } else if (board[index] === 'O') {
+        squareEls[index].classList.add('marked-o');
         updateBoard(index);
         updateMessage();
-        changeTurn()
+        changeTurn();
         //turn = 'X'
     }
     //console.log(board[index]);
@@ -133,7 +138,6 @@ function changeTurn() {
 function checkForTie() {
     if (winner === true) return;
     tie = board.every(square => square !== '');
-    console.log('tie' + tie);
 }
 
 // function restartGame() {
@@ -142,7 +146,6 @@ function checkForTie() {
 //     resetBtnEl.setAttribute('id', 'reset');
 //     messageEl.appendChild(resetBtnEl);
 // };
-
 
 
 /*----------------------------- Event Listeners -----------------------------*/
