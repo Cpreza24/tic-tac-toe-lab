@@ -27,9 +27,21 @@ h1, #message{
 }
 
 #reset {
+    background-color: rgb(240, 108, 1);
+    border: none;
+    border-radius: 4px;
     display: flex;
     justify-content: space-between;
     margin: 20px auto;
+    padding: 5px;
+}
+
+#reset:hover {
+    background-color: #db3001;
+}
+
+#reset:active {
+    transform: translateY(2px)
 }
 
 
